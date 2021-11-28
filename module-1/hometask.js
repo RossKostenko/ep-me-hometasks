@@ -91,17 +91,17 @@ const deepEqual = (objOne, objTwo) => {
 
 // Task 8 formatDate
 const chechValue = (value) => {
-	if (Array.isArray(value)) {
-		return Date.parse(...value)
-	} else if (typeof value === 'number') {
-		return Date.parse(new Date(value))
-	} else {
-		return Date.parse(value)
-	}
-}
+  if (Array.isArray(value)) {
+    return Date.parse(...value);
+  } else if (typeof value === "number") {
+    return Date.parse(new Date(value));
+  } else {
+    return Date.parse(value);
+  }
+};
 
 const formatDate = (value) => {
-	let timestamp = chechValue(value);
+  let timestamp = chechValue(value);
 
   if (timestamp) {
     return new Date(timestamp).toLocaleDateString().replaceAll("/", ".");
