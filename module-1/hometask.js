@@ -10,20 +10,6 @@ const changeSingleLetterCase = (letter) => {
   }
 };
 
-// faster
-const changeCase = (string) => {
-  if (typeof string !== "string") {
-    return;
-  }
-
-  let result = "";
-  for (let letter of string) {
-    result += changeSingleLetterCase(letter);
-  }
-  return result;
-};
-
-// slower
 const changeCase = (string) => {
   if (typeof string !== "string") {
     return;
