@@ -81,7 +81,9 @@ const deepEqual = (objOne, objTwo) => {
         if (!deepEqual(objOne[prop], objTwo[prop])) {
           return false;
         }
-      } else return false;
+      } else {
+			return false
+		};
     }
     return true;
   } else {
@@ -104,6 +106,12 @@ const formatDate = (value) => {
   let timestamp = chechValue(value);
 
   if (timestamp) {
-    return new Date(timestamp).toLocaleDateString().replaceAll("/", ".");
-  } else return timestamp;
+    return new Date(timestamp).toLocaleDateString('uk-UA', {
+		day: "numeric",
+		month: "numeric",
+		year: "2-digit"
+	 })
+  } else {
+	  return timestamp
+	}
 };
