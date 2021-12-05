@@ -101,7 +101,11 @@ const repeat = (callback, number) => {
 repeat(() => console.log("Wassup"), 5);
 
 const reduce = (array, callback, initialValue) => {
-  let result = initialValue;
+  console.log(typeof callback);
+  if (!array || !callback) {
+    throw new Error("No Array or Callback Found");
+  }
+  let result = initialValue ? initialValue : 0;
   array.forEach((elem) => {
     result = callback(result, elem);
   });
