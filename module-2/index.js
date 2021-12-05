@@ -100,4 +100,18 @@ const repeat = (callback, number) => {
 
 repeat(() => console.log("Wassup"), 5);
 
-const reduce = () => {};
+const reduce = (array, callback, initialValue) => {
+  let result = initialValue;
+  array.forEach((elem) => {
+    result = callback(result, elem);
+  });
+  return result;
+};
+
+reduce(
+  [1, 2, 3],
+  function (prev, curr, index, arr) {
+    return prev + curr;
+  },
+  0
+);
