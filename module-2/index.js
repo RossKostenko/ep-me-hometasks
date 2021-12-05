@@ -114,4 +114,4 @@ reduce(
     return prev + curr;
   },
   0
-);
+); // 6
