@@ -36,10 +36,9 @@ const countWords = (array) =>
 // Palindrome
 
 const isPalindrome = (string) => {
-  const reverseString = string.split("").reverse().join("");
+  const reverseString = string.split("").reverse().join("").toLocaleLowerCase();
 
-  return string.slice(0, Math.floor(string.length / 2)) ===
-    reverseString.slice(0, Math.floor(string.length / 2))
+  return string === reverseString
     ? "The entry is a palindrome"
     : "Entry is not a palindrome";
 };
@@ -100,6 +99,15 @@ const reduce = (array, callback, initialValue) => {
   array.forEach((elem) => {
     result = callback(result, elem);
   });
+  return result;
+};
+
+const reduce = (array, callback, initialValue) => {
+  let result = array.length
+    ? (initialValue +=
+        callback(array[0], array[1] || 0) +
+        reduce(array.splice(2), callback, initialValue))
+    : 0;
   return result;
 };
 
