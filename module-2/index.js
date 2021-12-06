@@ -8,22 +8,16 @@ mergeWords("GNU")("is")("not")("Unix.")(); // Output: ‘GNU is not Unix.’
 
 // Every/Some
 
-const checkUsersValid = () => {};
-
 let goodUsers = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
 const checkUsersValid = (arrayExcample) => (arrayToCheck) => {
-  for (let i = 0; i < arrayToCheck.length; i++) {
-    if (!arrayExcample.some((obj) => obj.id === arrayToCheck[i].id)) {
-      return false;
-    }
-  }
-  return true;
+  return arrayToCheck.every((checkObj) =>
+    arrayExcample.some((excObj) => excObj.id === checkObj.id)
+  );
 };
 
 let testAllValid = checkUsersValid(goodUsers);
 testAllValid([{ id: 2 }, { id: 1 }]); // Output: true
-
 testAllValid([{ id: 2 }, { id: 4 }, { id: 1 }]); // Output: false
 
 // Reduce
@@ -42,18 +36,16 @@ const countWords = (array) =>
 // Palindrome
 
 const isPalindrome = (string) => {
-  const coef = string.length / 2 ? 0.5 : 0;
-  const check =
-    string.slice(0, string.length / 2 - coef) ===
-    string
-      .slice(string.length / 2 + coef)
-      .split("")
-      .reverse()
-      .join("");
-  return check ? "The entry is a palindrome" : "Entry is not a palindrome";
+  const reverseString = string.split("").reverse().join("");
+
+  return string.slice(0, Math.floor(string.length / 2)) ===
+    reverseString.slice(0, Math.floor(string.length / 2))
+    ? "The entry is a palindrome"
+    : "Entry is not a palindrome";
 };
 
 isPalindrome("madam"); // Output: ‘The entry is a palindrome’
+isPalindrome("maam"); // Output: ‘The entry is a palindrome’
 isPalindrome("fox"); // Output: ‘Entry is not a palindrome’
 
 // Recursion
@@ -101,7 +93,6 @@ const repeat = (callback, number) => {
 repeat(() => console.log("Wassup"), 5);
 
 const reduce = (array, callback, initialValue) => {
-  console.log(typeof callback);
   if (!array || !callback) {
     throw new Error("No Array or Callback Found");
   }
