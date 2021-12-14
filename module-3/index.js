@@ -77,15 +77,86 @@ class Clock {
   }
 }
 
+const getCurrentTime = () =>
+  console.log(new Date(Date.now()).toLocaleTimeString());
+
+function Clock() {
+  this.currentTime;
+
+  this.start = function () {
+    this.currentTime = setInterval(() => getCurrentTime(), 1000);
+  };
+
+  this.stop = function () {
+    clearInterval(this.currentTime);
+  };
+}
+
 const clock = new Clock();
 
 clock.start();
 clock.stop();
 
 // Groups
+// Try 1: SET
 class Group {
   static from(arr) {
     return new Set(arr);
+  }
+}
+
+// Try 2: With Custom Set
+class CustomSet {
+  constructor(arr) {
+    this.arr = arr;
+  }
+
+  has(number) {
+    return this.arr.includes(number);
+  }
+
+  add(number) {
+    if (this.arr.includes(number)) {
+      return;
+    } else {
+      this.arr.push(number);
+    }
+  }
+
+  delete(number) {
+    if (this.arr.includes(number)) {
+      this.arr = this.arr.filter((el) => el !== number);
+    }
+  }
+}
+
+class Group {
+  static from(arr) {
+    return new CustomSet(arr);
+  }
+}
+
+// Try 3: returning object
+class Group {
+  static from(arr) {
+    return {
+      arr: arr,
+      has: function (number) {
+        return this.arr.includes(number);
+      },
+      add: function (number) {
+        if (this.arr.includes(number)) {
+          return;
+        } else {
+          this.arr.push(number);
+        }
+      },
+      delete: function (number) {
+        if (this.arr.includes(number)) {
+          this.arr = this.arr.filter((el) => el !== number);
+        }
+      },
+    };
   }
 }
 
