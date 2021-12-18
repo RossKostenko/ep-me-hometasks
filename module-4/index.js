@@ -97,6 +97,38 @@ class Book {
   }
 }
 
+// BookList implementation 1
+class BookList {
+  constructor(books) {
+    this.books = Array.isArray(books) ? books : [];
+    this.setListProperties = function () {
+      const readArr = [];
+      const notReadArr = [];
+      this.books.forEach((book) =>
+        book.read ? readArr.push(book) : notReadArr.push(book)
+      );
+      this.booksFinished = readArr.length;
+      this.booksNotFinished = notReadArr.length;
+      this.nextBook = notReadArr[1] || null;
+      this.currentBook = notReadArr[0] || null;
+      this.lastBook = readArr[(readArr, length - 1)] || null;
+    };
+    this.setListProperties();
+  }
+
+  add(book) {
+    this.books.push(book);
+    this.setListProperties();
+  }
+
+  finishCurrentBook() {
+    this.currentBook.markAsRead();
+    this.setListProperties();
+  }
+}
+
+// BookList implementation 2
+
 const setListProperties = (list) => {
   const readArr = [];
   const notReadArr = [];
