@@ -139,7 +139,7 @@ const setListProperties = (list) => {
   list.booksNotFinished = notReadArr.length;
   list.nextBook = notReadArr[1] || null;
   list.currentBook = notReadArr[0] || null;
-  list.lastBook = readArr[(readArr, length - 1)] || null;
+  list.lastBook = readArr[readArr.length - 1] || null;
 };
 
 class BookList {
