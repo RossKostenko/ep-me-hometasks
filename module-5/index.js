@@ -1,9 +1,8 @@
 // Task 1
-const delay = (ms) => {
-  return new Promise((resolve) => {
+const delay = (ms) =>
+  new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
-};
 
 delay(1000).then(() => console.log("Hey!")); // → ‘Hey!’ in 1 second
 
@@ -125,7 +124,7 @@ let [...first10] = fibonacci(10);
 console.log(first10); // → [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 // generator interpretation
-// with Promise syntax
+// with generator syntax
 const asyncTask1 = () =>
   new Promise((resolve, reject) =>
     setTimeout(() => resolve("first resolved"), 1000)
@@ -147,6 +146,41 @@ function* main() {
 }
 
 const iterator = main();
+
+iterator
+  .next()
+  .value.then((res) => console.log(res))
+  .then(
+    iterator
+      .next()
+      .value.then((res) => console.log(res))
+      .then(
+        iterator
+          .next()
+          .value.then((res) => console.log(res))
+          .catch((e) => {
+            console.error("error happened", e);
+          })
+      )
+  );
+
+// with Symbol.iterator syntax
+
+const asyncTask1 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => resolve("first resolved"), 1000)
+  );
+const asyncTask2 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => resolve("second resolved"), 1000)
+  );
+const asyncTask3 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject("third rejected"), 1000)
+  );
+console.log("invoke helper");
+
+const iterator = [asyncTask1(), asyncTask2(), asyncTask3()][Symbol.iterator]();
 
 iterator
   .next()
