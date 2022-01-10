@@ -72,9 +72,9 @@ console.log(first10); // → [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 // with generator basics
 const fibonacciGenerator = function* () {
-  let current = 1;
-  let next = 1;
-  let previous = 1;
+  let current = 1,
+    next = 1,
+    previous = 1;
   yield 0;
   yield 1;
   while (true) {
@@ -104,9 +104,10 @@ const fibonacci = function* (number) {
     throw new Error("Must be a number");
   }
   let current = (next = previous = 1);
-  let current = 1;
-  let next = 1;
-  let previous = 1;
+  let current = 1,
+    next = 1,
+    previous = 1;
+
   yield 0;
   yield 1;
   for (let i = 2; i < number; i++) {
@@ -195,3 +196,50 @@ iterator
           })
       )
   );
+
+const asyncTask1 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => resolve("first resolved"), 1000)
+  );
+const asyncTask2 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => resolve("second resolved"), 1000)
+  );
+const asyncTask3 = () =>
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject("third rejected"), 1000)
+  );
+console.log("invoke helper");
+
+function helper(generatorCallback) {
+  const iterator = generatorCallback();
+  return iterator
+    .next()
+    .value.then((res) => {
+      console.log(res);
+    })
+    .then(
+      iterator
+        .next()
+        .value.then((res) => {
+          console.log(res);
+        })
+        .then(
+          iterator.next().value.catch((err) => {
+            console.error(err);
+          })
+        )
+    );
+}
+
+helper(function* main() {
+  try {
+    const a = yield asyncTask1();
+    console.log(a);
+    const b = yield asyncTask2();
+    console.log(b);
+    const c = yield asyncTask3();
+  } catch (e) {
+    console.error("error happened", e);
+  }
+});
