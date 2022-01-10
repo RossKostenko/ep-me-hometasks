@@ -6,17 +6,9 @@ const delay = (ms) =>
 
 delay(1000).then(() => console.log("Hey!")); // → ‘Hey!’ in 1 second
 
-// How to make it with Promise.resolve() ????
-// const delay = (ms) => {
-//   return setTimeout(() => Promise.resolve(), ms);
-// };
-
-// delay(1000).then(() => console.log("Hey!")); // → ‘Hey!’ in 1 second
-
 // Task 2
-const runPromisesInSeries = ([callbackOne, callbackTwo]) => {
-  callbackOne().then(callbackTwo());
-};
+const runPromisesInSeries = (callbackArr) =>
+  callbackArr.reduce((acc, callback) => acc.then(callback), Promise.resolve());
 
 runPromisesInSeries([
   () =>
@@ -80,7 +72,9 @@ console.log(first10); // → [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 // with generator basics
 const fibonacciGenerator = function* () {
-  let current = (next = previous = 1);
+  let current = 1;
+  let next = 1;
+  let previous = 1;
   yield 0;
   yield 1;
   while (true) {
@@ -110,9 +104,12 @@ const fibonacci = function* (number) {
     throw new Error("Must be a number");
   }
   let current = (next = previous = 1);
+  let current = 1;
+  let next = 1;
+  let previous = 1;
   yield 0;
   yield 1;
-  while (true) {
+  for (let i = 2; i < number; i++) {
     current = next;
     yield current;
     next += previous;
