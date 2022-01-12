@@ -123,47 +123,20 @@ console.log(first10); // → [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 // generator interpretation
 // with generator syntax
-const asyncTask1 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => resolve("first resolved"), 1000)
-  );
-const asyncTask2 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => resolve("second resolved"), 1000)
-  );
-const asyncTask3 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => reject("third rejected"), 1000)
-  );
-console.log("invoke helper");
+function helper(generator) {
+  const iterator = generator();
 
-function* main() {
-  yield asyncTask1();
-  yield asyncTask2();
-  yield asyncTask3();
+  function iterate(iterator) {
+    if (iteration.done) {
+      return iteration.value;
+    }
+
+    return iteration.value.then((x) => iterate(iterator.next(x)));
+  }
+
+  return iterate(iterator.next());
 }
 
-const iterator = main();
-
-iterator
-  .next()
-  .value.then((res) => console.log(res))
-  .then(
-    iterator
-      .next()
-      .value.then((res) => console.log(res))
-      .then(
-        iterator
-          .next()
-          .value.then((res) => console.log(res))
-          .catch((e) => {
-            console.error("error happened", e);
-          })
-      )
-  );
-
-// with Symbol.iterator syntax
-
 const asyncTask1 = () =>
   new Promise((resolve, reject) =>
     setTimeout(() => resolve("first resolved"), 1000)
@@ -177,60 +150,6 @@ const asyncTask3 = () =>
     setTimeout(() => reject("third rejected"), 1000)
   );
 console.log("invoke helper");
-
-const iterator = [asyncTask1(), asyncTask2(), asyncTask3()][Symbol.iterator]();
-
-iterator
-  .next()
-  .value.then((res) => console.log(res))
-  .then(
-    iterator
-      .next()
-      .value.then((res) => console.log(res))
-      .then(
-        iterator
-          .next()
-          .value.then((res) => console.log(res))
-          .catch((e) => {
-            console.error("error happened", e);
-          })
-      )
-  );
-
-const asyncTask1 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => resolve("first resolved"), 1000)
-  );
-const asyncTask2 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => resolve("second resolved"), 1000)
-  );
-const asyncTask3 = () =>
-  new Promise((resolve, reject) =>
-    setTimeout(() => reject("third rejected"), 1000)
-  );
-console.log("invoke helper");
-
-function helper(generatorCallback) {
-  const iterator = generatorCallback();
-  return iterator
-    .next()
-    .value.then((res) => {
-      console.log(res);
-    })
-    .then(
-      iterator
-        .next()
-        .value.then((res) => {
-          console.log(res);
-        })
-        .then(
-          iterator.next().value.catch((err) => {
-            console.error(err);
-          })
-        )
-    );
-}
 
 helper(function* main() {
   try {
