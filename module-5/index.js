@@ -126,12 +126,14 @@ console.log(first10); // → [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 function helper(generator) {
   const iterator = generator();
 
-  function iterate(iterator) {
+  function iterate(iteration) {
     if (iteration.done) {
       return iteration.value;
     }
 
-    return iteration.value.then((x) => iterate(iterator.next(x)));
+    return iteration.value
+      .then((x) => iterate(iterator.next(x)))
+      .catch((error) => iterator.throw(error));
   }
 
   return iterate(iterator.next());
