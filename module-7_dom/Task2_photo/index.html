@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+  <title>Module 7 | Slider</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+	<section class="image-toggler mx-auto width-medium">
+		<header class="d-flex justify-between pb-2">
+			<div>
+				<label for="add_url">
+					<input id="add_url" placeholder="Image URL"/>
+				</label>
+				<button onclick="addImage()" class="add_image">Add</button>
+			</div>
+			<div>
+				<label for="add_timer">
+					<input id="add_timer"/>
+				</label>
+				<button onclick="resetTimeout()" class="set_timer">Set Timer</button>
+			</div>
+		</header>
+		<main class="">
+			<div id="slideshow_container" class="slideshow_container">
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+		</main>
+	</section>
+</body>
+
+<script src="./index.js" type="text/javascript"></script>
+
+</html>

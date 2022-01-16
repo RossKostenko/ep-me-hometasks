@@ -1,0 +1,10 @@
+html {
+  display: block;
+}
+textarea {
+  display: block;
+}
+
+p {
+  display: inline;
+}
