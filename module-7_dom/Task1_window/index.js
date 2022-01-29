@@ -16,6 +16,4 @@ function throttle(callback, time) {
   };
 }
 
-function insertData() {
-  throttle(getWindowSize, 500);
-}
+let insertData = throttle(getWindowSize, 500);
