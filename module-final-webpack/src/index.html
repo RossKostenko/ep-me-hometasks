@@ -19,7 +19,7 @@
 		</div>
 	</header>
 	<main class="todo-main mx-3">
-		<div class="todo-task-add-wrapper d-flex justify-between">
+		<form class="todo-task-add-wrapper d-flex justify-between" id="new-task-form">
 			<div class="todo-task-add-input-wrapper">
 				<input
 					placeholder="New Task..."
@@ -28,9 +28,9 @@
 					>
 			</div>
 			<div class="todo-task-add-button-wrapper">
-				<button class="todo-task-add-button">ADD</button>
+				<button type="button" class="todo-task-add-button" id="add-task-button">ADD</button>
 			</div>
-		</div>
+		</form>
 		<section class="list list-todo" id="todo-list">
 			<div class="list-heading d-flex justify-between"> 
 				<div><label>Open</label></div>
@@ -48,7 +48,10 @@
 		<section class="list list-done" id="done-list">
 			<div class="list-heading d-flex justify-between"> 
 				<div><label>Done</label></div>
-				<div><select name="done-sorting" id="done-sorting" class="list-heading-select">
+				<div><select 
+						name="done-sorting" 
+						id="done-sorting" 
+						class="list-heading-select">
 					<option value="records_asc">Records Asc</option>
 					<option value="records_desc">Records Desc</option>
 					<option value="creation_date_asc">Due Date Asc</option>
@@ -59,16 +62,6 @@
 				<div id="done-table-content"></div>
 			</section>
 		</section>
-		<!-- <table id="main-table" style="width:100%">
-		<tbody id="tbody">
-		<tr>
-			<th>Name</th>
-			<th colspan="2">Surname</th>
-		</tr>
-		</tbody>
-		</table>
 	</main>
-<button class="add" onclick="addRow()">Add row</button> -->
-
 </body>
 </html>

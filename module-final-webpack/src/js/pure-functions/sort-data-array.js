@@ -7,10 +7,14 @@ export function sortDataArray(array, sortType) {
     case "records_desc":
       return array.sort((a, b) => compareStrings(b.taskName, a.taskName));
     case "creation_date_asc":
-      return array.sort((a, b) => a.timeCreated - b.timeCreated);
+      return array.sort((a, b) =>
+        compareStrings(a.timestampCreated, b.timestampCreated)
+      );
     case "creation_date_desc":
-      return array.sort((a, b) => b.timeCreated - a.timeCreated);
+      return array.sort((a, b) =>
+        compareStrings(b.timestampCreated, a.timestampCreated)
+      );
     default:
-      return (todoArray = array.sort((a, b) => a.taskName - b.taskName));
+      return;
   }
 }

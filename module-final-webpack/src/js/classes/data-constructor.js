@@ -15,7 +15,6 @@ export class DataConstructor {
       this.observers.forEach((callbackFn) => {
         callbackFn();
       });
-      console.log("deep Equal works");
     }
   }
 

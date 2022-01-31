@@ -1,11 +1,11 @@
 import "./../scss/styles.scss";
-import "./../scss/styles_main.scss";
 
 import { DataConstructor } from "./classes/data-constructor";
 import { initialData } from "./initial-data/index";
 import { setTodoSorting, setDoneSorting } from "./render/set-sorting";
 import { renderTodoList } from "./render/render-todo-list";
 import { renderDoneList } from "./render/render-done-list";
+import { Task } from "./classes/task";
 
 (function setInitialData() {
   const checkIfEmpty = localStorage.getItem("listData");
@@ -55,6 +55,34 @@ function addEventListeners() {
   const taskMessages = document.querySelectorAll(".message");
   taskMessages.forEach((el) => {
     el.addEventListener("click", editMessage);
+  });
+
+  const checkboxes = document.querySelectorAll(".checkbox-input");
+  checkboxes.forEach((el) => {
+    el.addEventListener("click", moveToOtherList);
+  });
+
+  const addTaskButton = document.getElementById("add-task-button");
+  addTaskButton.addEventListener("click", addNewTask);
+
+  const addTaskInput = document.getElementById("todo-add-input");
+  addTaskInput.addEventListener("keydown", addNewTaskViaInput);
+
+  const todoSortingSelect = document.getElementById("todo-sorting");
+  todoSortingSelect.addEventListener("change", sortTodo);
+
+  const doneSortingSelect = document.getElementById("done-sorting");
+  doneSortingSelect.addEventListener("change", sortDone);
+
+  const removeTableButton = document.querySelectorAll(".remove-table-button");
+  removeTableButton.forEach((el) => {
+    el.addEventListener("click", removeList);
+  });
+
+  const row = document.querySelectorAll(".table-row");
+  row.forEach((el) => {
+    el.addEventListener("mouseenter", showDeleteButton);
+    el.addEventListener("mouseleave", hideDeleteButton);
   });
 }
 
@@ -108,6 +136,94 @@ function toggleToText(inputField) {
 }
 
 // #endregion
+
+function moveToOtherList() {
+  const itemId = this.parentNode.parentNode.id;
+  const unchangeArr = todoListData.value.items.filter(
+    (item) => item.id !== itemId
+  );
+  const changingItem = todoListData.value.items.filter(
+    (item) => item.id === itemId
+  )[0];
+  changingItem.done = this.checked;
+
+  let newObj = { ...todoListData.value };
+  newObj.items = [...unchangeArr, changingItem];
+  todoListData.value = newObj;
+
+  refreshLocalStorage();
+}
+
+function addNewTask() {
+  const input = document.getElementById("todo-add-input");
+  const time = Date.now();
+
+  if (input.value) {
+    const newTask = new Task(input.value, time);
+
+    let newObj = { ...todoListData.value };
+    newObj.items = [...todoListData.value.items, newTask];
+    todoListData.value = newObj;
+    input.value = "";
+
+    refreshLocalStorage();
+  }
+}
+
+function addNewTaskViaInput(event) {
+  if (event.key === "Enter") {
+    addNewTask();
+  }
+}
+
+function sortTodo() {
+  console.log(this.value);
+  const newObj = { ...todoListData.value };
+
+  newObj.sortingTodo = this.value;
+  todoListData.value = newObj;
+
+  refreshLocalStorage();
+}
+
+function sortDone() {
+  console.log(this.value);
+  const newObj = { ...todoListData.value };
+
+  newObj.sortingDone = this.value;
+  todoListData.value = newObj;
+
+  refreshLocalStorage();
+}
+
+function removeList() {
+  const table = this.parentNode.parentNode;
+  const taskIds = [];
+  table.querySelectorAll(".table-row").forEach((el) => {
+    taskIds.push(el.id);
+  });
+
+  const newArr = todoListData.value.items.filter(
+    (item) => taskIds.indexOf(item.id) === -1
+  );
+
+  const newObj = { ...todoListData.value };
+
+  newObj.items = newArr;
+
+  todoListData.value = newObj;
+  refreshLocalStorage();
+}
+
+function showDeleteButton() {
+  const deleteButton = this.querySelector(".delete");
+  deleteButton.style.display = "block";
+}
+
+function hideDeleteButton() {
+  const deleteButton = this.querySelector(".delete");
+  deleteButton.style.display = "none";
+}
 
 function refreshLocalStorage() {
   localStorage.setItem("listData", JSON.stringify(todoListData.value));

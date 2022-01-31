@@ -45,12 +45,13 @@ function renderRow(el) {
 
   const cellThree = row.appendChild(document.createElement("div"));
   cellThree.className = "d-flex";
+
   const cellThreeTime = cellThree.appendChild(document.createElement("div"));
   cellThreeTime.className = "time";
   cellThreeTime.innerText = showTime(el.timestampCreated);
 
   const cellThreeDelete = cellThree.appendChild(document.createElement("div"));
   cellThreeDelete.className = "delete";
-  cellThreeDelete.innerText = "D";
+
   return row;
 }
