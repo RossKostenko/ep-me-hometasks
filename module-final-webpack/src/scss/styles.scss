@@ -1,0 +1,215 @@
+$color-primary: #2196f3;
+$color-secondary: #ffffff;
+$color-grey: #aaaaaa;
+
+body {
+  max-width: 764px;
+  margin: 0 auto;
+}
+
+/* #region reused classes */
+.mx-3 {
+  margin: 0 100px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+/* #endregion of reused classes */
+
+/* #region header */
+.todo-header {
+  width: 100%;
+  height: 68px;
+  background-color: $color-primary;
+  color: $color-secondary;
+}
+
+.todo-search-wrapper {
+  margin: auto 0;
+}
+
+.todo-header,
+.todo-search {
+  background-color: $color-primary;
+  color: $color-secondary;
+}
+
+.todo-label {
+  line-height: 24px;
+  font-size: 20px;
+  margin: auto 0;
+}
+
+.todo-search {
+  font-size: 16px;
+  border: 0;
+  border-bottom: 2px solid $color-secondary;
+  padding-bottom: 3px;
+}
+
+.todo-search::placeholder {
+  color: $color-secondary;
+  font-size: 16px;
+}
+
+/* #endregion header */
+
+/* #region main */
+.todo-main {
+  margin-top: 40px;
+}
+
+.todo-task-add-wrapper {
+  margin: 20px;
+}
+
+.todo-task-add-input-wrapper {
+  margin: auto 0;
+  width: 100%;
+  padding-right: 70px;
+}
+
+.todo-task-add-input {
+  width: 100%;
+  font-size: 16px;
+  line-height: 40px;
+  color: $color-grey;
+  border: 0;
+  padding-bottom: 3px;
+  border-bottom: 2px solid $color-grey;
+}
+
+.todo-task-add-input::placeholder {
+  color: $color-grey;
+  font-size: 16px;
+}
+
+.todo-task-add-button {
+  width: 100px;
+  height: 46px;
+  border: none;
+  background-color: $color-secondary;
+  box-shadow: 0 5px 5px $color-grey;
+}
+/* #endregion main */
+
+/* #region lists */
+.list-heading {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  line-height: 20px;
+
+  &-select {
+    border: 0;
+    border-bottom: 2px solid $color-grey;
+  }
+}
+
+.list-table {
+  width: 100%;
+  border: none;
+
+  .table-row {
+    margin: 24px 0;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 5px $color-grey;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    min-height: 90px;
+    font-size: 20px;
+
+    .checkbox-wrapper {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+    }
+
+    .checkbox-input {
+      display: block;
+      border-radius: 5px;
+      width: 27px;
+      height: 27px;
+      margin: auto 25px;
+    }
+
+    .message {
+      max-width: 330px;
+      margin: auto 0;
+      text-align: start;
+    }
+
+    .time {
+      margin: auto 5px auto 0;
+      font-size: 15px;
+      color: $color-grey;
+    }
+
+    .delete {
+      width: 67px;
+      height: 67px;
+      text-align: center;
+      padding: 20px 0;
+      border-left: 2px solid $color-grey;
+    }
+  }
+
+  .remove-table {
+    &-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+    &-button {
+      border: none;
+      text-decoration: underline;
+      background-color: $color-secondary;
+    }
+  }
+}
+
+/* #endregion */
+
+// table {
+//   border: 2px solid black;
+//   background-color: aliceblue;
+//   border-collapse: collapse;
+// }
+
+// th {
+//   border: 2px solid black;
+//   padding: 10px;
+//   font-size: 20px;
+// }
+// td {
+//   border: 2px solid black;
+//   padding: 10px;
+//   text-align: center;
+// }
+
+// #remove_cell {
+//   width: 5%;
+// }
+
+// .btn {
+//   background-color: DodgerBlue;
+//   border: none;
+//   color: white;
+//   padding: 12px 16px;
+//   font-size: 16px;
+//   cursor: pointer;
+// }
+
+// .cell {
+//   width: 45%;
+// }
+
+// .cell-with-delete {
+//   width: 10%;
+// }

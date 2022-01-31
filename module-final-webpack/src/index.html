@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+  <title>Todo List</title>
+  <meta charset="utf-8">
+</head>
+<body>
+	<header class="todo-header">
+		<div class="mx-3 d-flex justify-between">
+			<div class="todo-label">
+				<h3>Todo List</h3>
+			</div>
+			<div class="todo-search-wrapper">
+				<input
+					placeholder="Search..."
+					class="todo-search"
+					id="todo-search"
+				>
+			</div>
+		</div>
+	</header>
+	<main class="todo-main mx-3">
+		<div class="todo-task-add-wrapper d-flex justify-between">
+			<div class="todo-task-add-input-wrapper">
+				<input
+					placeholder="New Task..."
+					class="todo-task-add-input"
+					id="todo-add-input"
+					>
+			</div>
+			<div class="todo-task-add-button-wrapper">
+				<button class="todo-task-add-button">ADD</button>
+			</div>
+		</div>
+		<section class="list list-todo" id="todo-list">
+			<div class="list-heading d-flex justify-between"> 
+				<div><label>Open</label></div>
+				<div><select name="todo-sorting" id="todo-sorting" class="list-heading-select">
+					<option value="records_asc">Records Asc</option>
+					<option value="records_desc">Records Desc</option>
+					<option value="creation_date_asc">Creation Date Asc</option>
+					<option value="creation_date_desc">Creation Date Desc</option>
+				</select></div>
+			</div>
+			<section id="todo-table" class="list-table">
+				<div id="todo-table-content"></div>
+			</section>
+		</section>
+		<section class="list list-done" id="done-list">
+			<div class="list-heading d-flex justify-between"> 
+				<div><label>Done</label></div>
+				<div><select name="done-sorting" id="done-sorting" class="list-heading-select">
+					<option value="records_asc">Records Asc</option>
+					<option value="records_desc">Records Desc</option>
+					<option value="creation_date_asc">Due Date Asc</option>
+					<option value="creation_date_desc">Due Date Desc</option>
+				</select></div>
+			</div>
+			<section id="done-table" class="list-table">
+				<div id="done-table-content"></div>
+			</section>
+		</section>
+		<!-- <table id="main-table" style="width:100%">
+		<tbody id="tbody">
+		<tr>
+			<th>Name</th>
+			<th colspan="2">Surname</th>
+		</tr>
+		</tbody>
+		</table>
+	</main>
+<button class="add" onclick="addRow()">Add row</button> -->
+
+</body>
+</html>
