@@ -54,7 +54,7 @@ function addEventListeners() {
   });
   const taskMessages = document.querySelectorAll(".message");
   taskMessages.forEach((el) => {
-    el.addEventListener("click", editMessage);
+    el.addEventListener("dblclick", editMessage);
   });
 
   const checkboxes = document.querySelectorAll(".checkbox-input");
