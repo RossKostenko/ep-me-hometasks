@@ -86,7 +86,7 @@ function addEventListeners() {
   });
 
   const search = document.getElementById("todo-search");
-  search.addEventListener("focus", sortArray);
+  search.addEventListener("input", sortArray);
 }
 
 function removeRow() {
@@ -155,6 +155,7 @@ function moveToOtherList() {
   todoListData.value = newObj;
 
   refreshLocalStorage();
+  location.reload();
 }
 
 function addNewTask() {
@@ -229,31 +230,13 @@ function hideDeleteButton() {
 }
 
 function sortArray() {
-  const prevtodoListData = { ...todoListData.value };
-  const listArray = [...todoListData.value.items];
-  const search = this;
-  search.addEventListener("keydown", resetTable);
-  search.addEventListener("change", sortArrayOnEveryKeystroke);
-
-  function resetTable(event) {
-    if (event.key === "Escape") {
-      todoListData.value = prevtodoListData;
-    }
-  }
-
-  function sortArrayOnEveryKeystroke() {
-    if (search.value) {
-      const searchedArray = listArray.filter((el) =>
-        el.taskName.match(search.value)
-      );
-
-      const newObj = { ...todoListData.value };
-      newObj.items = searchedArray;
-      todoListData.value = newObj;
-    } else {
-      todoListData.value = prevtodoListData;
-    }
-  }
+  const searchField = document.getElementById("todo-search");
+  const todoCards = document.querySelectorAll(".table-row");
+  todoCards.forEach((el) => {
+    el.querySelector(".message").textContent.includes(searchField.value)
+      ? (el.style.display = "flex")
+      : (el.style.display = "none");
+  });
 }
 
 function refreshLocalStorage() {
