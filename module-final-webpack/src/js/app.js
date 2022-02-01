@@ -84,6 +84,9 @@ function addEventListeners() {
     el.addEventListener("mouseenter", showDeleteButton);
     el.addEventListener("mouseleave", hideDeleteButton);
   });
+
+  const search = document.getElementById("todo-search");
+  search.addEventListener("focus", sortArray);
 }
 
 function removeRow() {
@@ -223,6 +226,34 @@ function showDeleteButton() {
 function hideDeleteButton() {
   const deleteButton = this.querySelector(".delete");
   deleteButton.style.display = "none";
+}
+
+function sortArray() {
+  const prevtodoListData = { ...todoListData.value };
+  const listArray = [...todoListData.value.items];
+  const search = this;
+  search.addEventListener("keydown", resetTable);
+  search.addEventListener("change", sortArrayOnEveryKeystroke);
+
+  function resetTable(event) {
+    if (event.key === "Escape") {
+      todoListData.value = prevtodoListData;
+    }
+  }
+
+  function sortArrayOnEveryKeystroke() {
+    if (search.value) {
+      const searchedArray = listArray.filter((el) =>
+        el.taskName.match(search.value)
+      );
+
+      const newObj = { ...todoListData.value };
+      newObj.items = searchedArray;
+      todoListData.value = newObj;
+    } else {
+      todoListData.value = prevtodoListData;
+    }
+  }
 }
 
 function refreshLocalStorage() {
