@@ -115,6 +115,11 @@ function createInputField() {
       event.preventDefault();
       toggleToText(inputField);
     }
+    if (event.key === "Escape") {
+      todoListData.observers.forEach((callback) => {
+        callback();
+      });
+    }
   });
   return inputField;
 }
@@ -150,6 +155,10 @@ function moveToOtherList() {
   )[0];
   changingItem.done = this.checked;
 
+  if (changingItem.done) {
+    changingItem.timestampDone = Date.now();
+  }
+
   let newObj = { ...todoListData.value };
   newObj.items = [...unchangeArr, changingItem];
   todoListData.value = newObj;
@@ -181,7 +190,6 @@ function addNewTaskViaInput(event) {
 }
 
 function sortTodo() {
-  console.log(this.value);
   const newObj = { ...todoListData.value };
 
   newObj.sortingTodo = this.value;
@@ -191,7 +199,6 @@ function sortTodo() {
 }
 
 function sortDone() {
-  console.log(this.value);
   const newObj = { ...todoListData.value };
 
   newObj.sortingDone = this.value;

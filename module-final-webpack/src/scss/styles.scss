@@ -146,10 +146,18 @@ body {
       text-align: start;
     }
 
+    .time-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
     .time {
       margin: auto 25px auto 0;
       font-size: 15px;
       color: $color-grey;
+
+      &-done {
+        color: black;
+      }
     }
 
     .delete {

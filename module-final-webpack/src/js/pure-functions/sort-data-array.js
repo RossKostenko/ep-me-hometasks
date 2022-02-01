@@ -14,6 +14,14 @@ export function sortDataArray(array, sortType) {
       return array.sort((a, b) =>
         compareStrings(b.timestampCreated, a.timestampCreated)
       );
+    case "due_date_asc":
+      return array.sort((a, b) =>
+        compareStrings(a.timestampDone, b.timestampDone)
+      );
+    case "due_date_desc":
+      return array.sort((a, b) =>
+        compareStrings(b.timestampDone, a.timestampDone)
+      );
     default:
       return;
   }

@@ -47,8 +47,20 @@ function renderRow(el) {
   cellThree.className = "d-flex";
 
   const cellThreeTime = cellThree.appendChild(document.createElement("div"));
-  cellThreeTime.className = "time";
-  cellThreeTime.innerText = showTime(el.timestampCreated);
+  cellThreeTime.className = "time-wrapper";
+
+  const cellThreeTimeCreated = cellThreeTime.appendChild(
+    document.createElement("div")
+  );
+  cellThreeTimeCreated.innerText = showTime(el.timestampCreated);
+  cellThreeTimeCreated.className = "time";
+  if (el.done) {
+    const cellThreeTimeDone = cellThreeTime.appendChild(
+      document.createElement("div")
+    );
+    cellThreeTimeDone.innerText = showTime(el.timestampDone);
+    cellThreeTimeDone.className = "time time-done";
+  }
 
   const cellThreeDelete = cellThree.appendChild(document.createElement("div"));
   cellThreeDelete.className = "delete";
